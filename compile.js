@@ -65,8 +65,14 @@ charmap.h = `(+(${num(101)}))[${getstring("toString")}+[]](${num(21)})[${num(1)}
 charmap.C = `([][${getstring("at")}][${getstring('constructor')}+[]](${getstring("return escape")}+[])()(([]+[])[${getstring("bold")}+[]]())[${num(2)}])`
 
 
-const tocharcode = ([...string]) => {
-  return string.map(char => num(char.charCodeAt(0)));
+function tocharcode(string) {
+  const codes = []
+
+  for (let i=0; i<string.length;i++) {
+    codes[codes.length]=string.charCodeAt(i)
+  }
+
+  return codes
 }
 
 function compile(x) {
@@ -74,22 +80,3 @@ function compile(x) {
   //return `[][${getstring("at")}+[]][${getstring("constructor")}+[]](([]+[])[${getstring("constructor")}+[]][${getstring("from")}+"C"+${getstring("har")}+"C"+${getstring("ode")}](${array.join(",")}))()`
   return `[][${getstring("at")}+[]][${getstring("constructor")}+[]]((([]+[])[${getstring("constructor")}+[]][${getstring("fromCharCode")}+[]](${array.join(",")})))()`
 }
-
-// console.log(charmap.C);
-
-const src = "console.log('1')"
-
-const com = compile(src)
-
-console.log(com);
-
-console.log(eval(com))
-
-// for (let char in charmap) {
-//   if (charmap.hasOwnProperty(char)) {
-//     console.log(eval(charmap[char]));
-//   }
-// }
-
-
-//console.log(charmap.p);
